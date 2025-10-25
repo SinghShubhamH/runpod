@@ -11,10 +11,12 @@ RUN apt-get update && \
     apt-get install -y nodejs && \
     apt-get clean && rm -rf /var/lib/apt/lists/*
 
-# Install Qdrant GPU binary
-RUN curl -L https://github.com/qdrant/qdrant/releases/download/v1.14.1/qdrant_v1.14.1-gpu-nvidia_linux_amd64.tar.gz -o /tmp/qdrant.tar.gz && \
-    tar -xzf /tmp/qdrant.tar.gz -C /usr/local/bin && \
-    rm /tmp/qdrant.tar.gz
+# Install Qdrant GPU binary (fixed URL + unzip)
+RUN apt-get update && apt-get install -y unzip && \
+    curl -L https://github.com/qdrant/qdrant/releases/download/v1.14.1/qdrant-v1.14.1-linux-x86_64-gpu.zip -o /tmp/qdrant.zip && \
+    unzip /tmp/qdrant.zip -d /usr/local/bin && \
+    rm /tmp/qdrant.zip
+
 
 # Expose ports
 EXPOSE 8888
