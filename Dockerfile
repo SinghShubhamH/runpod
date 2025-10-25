@@ -11,11 +11,6 @@ RUN apt-get update && \
     apt-get install -y nodejs && \
     apt-get clean && rm -rf /var/lib/apt/lists/*
 
-# Copy Node app
-COPY package*.json ./
-RUN npm install
-COPY . .
-
 # Install Qdrant GPU binary
 RUN curl -L https://github.com/qdrant/qdrant/releases/download/v1.14.1/qdrant_v1.14.1-gpu-nvidia_linux_amd64.tar.gz -o /tmp/qdrant.tar.gz && \
     tar -xzf /tmp/qdrant.tar.gz -C /usr/local/bin && \
